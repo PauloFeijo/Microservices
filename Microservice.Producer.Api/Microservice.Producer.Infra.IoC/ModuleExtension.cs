@@ -1,10 +1,10 @@
 ﻿using Microservice.Producer.Domain.Interfaces;
 using Microservice.Producer.Domain.Services;
-using Microservice.Producer.MessagingBroker.RabbitMq;
+using Microservice.Producer.Infra.MessagingBroker.RabbitMq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microservice.Producer.IoC
+namespace Microservice.Producer.Infra.IoC
 {
     public static class ModuleExtension
     { 

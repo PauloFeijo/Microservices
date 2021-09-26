@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{072AE7AB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Producer.Domain", "Microservice.Producer.Domain\Microservice.Producer.Domain.csproj", "{D0D36FB2-EB6E-4E56-AFBE-1E61D9A6591A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Producer.IoC", "Microservice.Producer.IoC\Microservice.Producer.IoC.csproj", "{B34507ED-2C09-4810-8D95-15BC46BDD3EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Producer.Infra.IoC", "Microservice.Producer.Infra.IoC\Microservice.Producer.Infra.IoC.csproj", "{B34507ED-2C09-4810-8D95-15BC46BDD3EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Producer.MessagingBroker", "Microservice.Producer.MessagingBroker\Microservice.Producer.MessagingBroker.csproj", "{09E96D71-D02E-4647-9A28-5C6D40E7027C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Producer.Infra.MessagingBroker", "Microservice.Producer.Infra.MessagingBroker\Microservice.Producer.Infra.MessagingBroker.csproj", "{09E96D71-D02E-4647-9A28-5C6D40E7027C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Microservice.Producer.MessagingBroker.RabbitMq
+namespace Microservice.Producer.Infra.MessagingBroker.RabbitMq
 {
     public class RabbitConfig
     {

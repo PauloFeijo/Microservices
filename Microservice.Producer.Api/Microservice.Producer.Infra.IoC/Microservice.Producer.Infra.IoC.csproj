@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Microservice.Producer.Domain\Microservice.Producer.Domain.csproj" />
-    <ProjectReference Include="..\Microservice.Producer.MessagingBroker\Microservice.Producer.MessagingBroker.csproj" />
+    <ProjectReference Include="..\Microservice.Producer.Infra.MessagingBroker\Microservice.Producer.Infra.MessagingBroker.csproj" />
   </ItemGroup>
 
 </Project>

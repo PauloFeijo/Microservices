@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microservice.Producer.IoC\Microservice.Producer.IoC.csproj" />
+    <ProjectReference Include="..\Microservice.Producer.Infra.IoC\Microservice.Producer.Infra.IoC.csproj" />
   </ItemGroup>
 
 </Project>
