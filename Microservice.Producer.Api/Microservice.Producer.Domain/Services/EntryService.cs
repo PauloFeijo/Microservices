@@ -1,4 +1,5 @@
-﻿using Microservice.Producer.Domain.Entities;
+﻿using Microservice.Producer.Domain.Dtos;
+using Microservice.Producer.Domain.Entities;
 using Microservice.Producer.Domain.Interfaces;
 using Microservice.Producer.Domain.Messages;
 using Microsoft.Extensions.Logging;
@@ -18,8 +19,9 @@ namespace Microservice.Producer.Domain.Services
             _messageBroker = messageBroker;
             _logger = logger;
         }
-        public async Task PublishEntry(Entry entry)
+        public async Task PublishEntry(EntryDto entryDto)
         {
+            var entry = new Entry(entryDto);
             _logger.LogInformation($"Call the message service for the entry {entry.Id}");
             var message = new Message<Entry>(entry);
             await _messageBroker.Publish(message);
