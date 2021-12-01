@@ -1,15 +1,13 @@
-﻿using AutoFixture;
-using FluentAssertions;
-using Microservice.Producer.Domain.Dtos;
+﻿using FluentAssertions;
+using KellermanSoftware.CompareNetObjects;
 using Microservice.Producer.Domain.Entities;
-using Microservice.Producer.Domain.Interfaces;
+using Microservice.Producer.Domain.Interfaces.MessageBroker;
 using Microservice.Producer.Domain.Messages;
 using Microservice.Producer.Domain.Services;
 using Microservice.Producer.Domain.Tests.Builders;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Microservice.Producer.Domain.Tests.Services
@@ -19,36 +17,37 @@ namespace Microservice.Producer.Domain.Tests.Services
         private const string ExceptionMessage = "Exception Message";
         private readonly EntryService _entryService;
         private readonly MockRepository _mock;
-        private readonly Mock<IMessageBroker> _messageBroker;
+        private readonly Mock<IMessageBrokerService> _messageBroker;
         private readonly Mock<ILogger<EntryService>> _logger;
+        private readonly CompareLogic _compare;
 
         public EntryServiceTest()
         {
             _mock = new MockRepository(MockBehavior.Strict);
-            _messageBroker = _mock.Create<IMessageBroker>();
+            _messageBroker = _mock.Create<IMessageBrokerService>();
             _logger = _mock.Create<ILogger<EntryService>>(MockBehavior.Loose);
             _entryService = new EntryService(_messageBroker.Object, _logger.Object);
+            _compare = new CompareLogic();
         }
 
         [Fact]
-        public async Task PublishEntry_ShouldExecuteCorrectly()
+        public void PublishEntry_ShouldExecuteCorrectly()
         {
-            var entryDto = new EntryDtoBuilder()
+            var entry = new EntryBuilder()
                 .WithValidValues()
                 .Build();
             _messageBroker
-                .Setup(x => x.Publish(It.Is<Message<Entry>>(x => MathEntry(x.Data, entryDto))))
-                .Returns(Task.CompletedTask);
+                .Setup(x => x.Publish(It.Is<Message<Entry>>(x => MathEntry(x.Data, entry))));
 
-            await _entryService.PublishEntry(entryDto);
+            _entryService.PublishEntry(entry);
 
             _mock.VerifyAll();
         }
 
         [Fact]
-        public async Task PublishEntry_WhenMessageBrokerFail_ShouldThrowAnException()
+        public void PublishEntry_WhenMessageBrokerFail_ShouldThrowAnException()
         {
-            var entryDto = new EntryDtoBuilder()
+            var entry = new EntryBuilder()
                 .WithValidValues()
                 .Build();
             var exception = new Exception(ExceptionMessage);
@@ -56,18 +55,13 @@ namespace Microservice.Producer.Domain.Tests.Services
                 .Setup(x => x.Publish(It.IsAny<Message<Entry>>()))
                 .Throws(exception);
 
-            Func<Task> func = () => _entryService.PublishEntry(entryDto);
+            Action func = () => _entryService.PublishEntry(entry);
 
-            await func.Should().ThrowAsync<Exception>(ExceptionMessage);
+            func.Should().Throw<Exception>(ExceptionMessage);
             _mock.VerifyAll();
         }
 
-        private static bool MathEntry(Entry entry, EntryDto entryDto) => 
-            entry.UserName == entryDto.UserName &&
-            entry.Moment == entryDto.Moment &&
-            entry.Type == entryDto.Type &&
-            entry.Value == entryDto.Value &&
-            entry.AccountDescription == entryDto.AccountDescription &&
-            entry.Description == entryDto.Description;
+        private bool MathEntry(Entry entry, Entry entryExpected) =>
+            _compare.Compare(entryExpected, entry).AreEqual;
     }
 }

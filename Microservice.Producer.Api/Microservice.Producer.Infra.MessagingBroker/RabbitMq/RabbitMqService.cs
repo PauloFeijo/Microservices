@@ -1,33 +1,32 @@
-﻿using Microservice.Producer.Domain.Interfaces;
+﻿using Microservice.Producer.Domain.Interfaces.MessageBroker;
 using Microservice.Producer.Domain.Messages;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
-using System.Text;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Microservice.Producer.Infra.MessagingBroker.RabbitMq
 {
-    public class RabbitMq : IMessageBroker
+    [ExcludeFromCodeCoverage]
+    public class RabbitMqService : IMessageBrokerService
     {
         private readonly RabbitConfig _config;
-        private readonly ILogger<RabbitMq> _logger;
+        private readonly ILogger<RabbitMqService> _logger;
         private ConnectionFactory _connectionFactory;
         private IConnection _connection;
         private IModel _channel;
 
-        public RabbitMq(RabbitConfig rabbitConfig, ILogger<RabbitMq> logger)
+        public RabbitMqService(RabbitConfig rabbitConfig, ILogger<RabbitMqService> logger)
         {
             _config = rabbitConfig;
             _logger = logger;
         }
 
-        public async Task Publish<TData>(Message<TData> message)
+        public void Publish<TData>(Message<TData> message)
         {
             _logger.LogInformation($"publish in queue {_config.Queue} RabbitMq. Id: {message.Id}");
 
-            var messageSerialized = JsonSerializer.Serialize(message.Data);
-            var body = Encoding.UTF8.GetBytes(messageSerialized);
+            var body = JsonSerializer.SerializeToUtf8Bytes(message.Data);
 
             GetChannel().BasicPublish(
                 exchange: _config.Exchange,
@@ -41,8 +40,8 @@ namespace Microservice.Producer.Infra.MessagingBroker.RabbitMq
         {
             if (_channel == null)
             {
-                _connectionFactory = new ConnectionFactory() 
-                { 
+                _connectionFactory = new ConnectionFactory()
+                {
                     HostName = _config.HostName,
                     Port = _config.Port,
                     UserName = _config.UserName,

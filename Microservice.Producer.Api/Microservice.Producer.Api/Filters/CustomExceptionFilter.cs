@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Microservice.Producer.Api.Filters
 {
-    public class ValidationExceptionFilter : ExceptionFilterAttribute
+    public class CustomExceptionFilter : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)
         {
-            if (context.Exception is ValidationException)
+            if (context.Exception is CustomException)
             {
                 context.Result = new BadRequestObjectResult(context.Exception.Message);
                 return;

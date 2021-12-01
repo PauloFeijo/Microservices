@@ -1,5 +1,6 @@
 ﻿using Microservice.Consumer.Domain.Entities;
-using Microservice.Consumer.Domain.Interfaces;
+using Microservice.Consumer.Domain.Interfaces.Repositories;
+using Microservice.Consumer.Domain.Interfaces.Services;
 using Microservice.Consumer.Domain.Messages;
 using System.Threading.Tasks;
 

@@ -1,15 +1,13 @@
 ﻿using Microservice.Producer.Api.Filters;
-using Microservice.Producer.Domain.Dtos;
-using Microservice.Producer.Domain.Entities;
-using Microservice.Producer.Domain.Interfaces;
+using Microservice.Producer.Api.Models;
+using Microservice.Producer.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Microservice.Producer.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [ValidationExceptionFilter]
+    [CustomExceptionFilter]
     public class EntryController : ControllerBase
     {
         private readonly IEntryService _service;
@@ -20,10 +18,11 @@ namespace Microservice.Producer.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] EntryDto entryDto)
+        public IActionResult Post([FromBody] EntryModelRequest entryRequest)
         {
-            await _service.PublishEntry(entryDto);
-            return Ok(entryDto);
+            var entry = entryRequest.ToEntry();
+            _service.PublishEntry(entry);
+            return Accepted(entryRequest);
         }
     }
 }

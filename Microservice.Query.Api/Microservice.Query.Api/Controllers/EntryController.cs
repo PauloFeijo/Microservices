@@ -1,7 +1,6 @@
 ﻿using Microservice.Query.Domain.Dtos;
-using Microservice.Query.Domain.Interfaces;
+using Microservice.Query.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 

@@ -1,10 +1,10 @@
 ﻿using AutoFixture;
-using Microservice.Producer.Domain.Dtos;
+using Microservice.Producer.Api.Models;
 using System;
 
 namespace Microservice.Producer.Api.Tests.Builders
 {
-    public class EntryDtoBuilder
+    public class EntryModelRequestBuilder
     {
         private Fixture _builder;
         private string _userName;
@@ -14,7 +14,7 @@ namespace Microservice.Producer.Api.Tests.Builders
         private string _description;
         private decimal _value;
 
-        public EntryDtoBuilder()
+        public EntryModelRequestBuilder()
         {
             _builder = new Fixture();
             _userName = _builder.Create<string>();
@@ -25,47 +25,47 @@ namespace Microservice.Producer.Api.Tests.Builders
             _value = _builder.Create<decimal>();
         }
 
-        public EntryDtoBuilder WithValidValues()
+        public EntryModelRequestBuilder WithValidValues()
         {
-            _moment = DateTime.UtcNow;
+            _moment = DateTime.UtcNow.AddSeconds(-1);
             _type = 'R';
             _value = 10.00m;
             return this;
         }
 
-        public EntryDtoBuilder WithType(char type)
+        public EntryModelRequestBuilder WithType(char type)
         {
             _type = type;
             return this;
         }
 
-        public EntryDtoBuilder WithUserName(string username)
+        public EntryModelRequestBuilder WithUserName(string username)
         {
             _userName = username;
             return this;
         }
 
-        public EntryDtoBuilder WithAccountingDescription(string accountingDescription)
+        public EntryModelRequestBuilder WithAccountingDescription(string accountingDescription)
         {
             _accountDescription = accountingDescription;
             return this;
         }
 
-        public EntryDtoBuilder WithValue(decimal value)
+        public EntryModelRequestBuilder WithValue(decimal value)
         {
             _value = value;
             return this;
         }
 
-        public EntryDtoBuilder WithMoment(DateTime moment)
+        public EntryModelRequestBuilder WithMoment(DateTime moment)
         {
             _moment = moment;
             return this;
         }
 
-        public EntryDto Build()
+        public EntryModelRequest Build()
         {
-            return new EntryDto()
+            return new EntryModelRequest()
             {
                 UserName = _userName,
                 Moment = _moment,

@@ -1,12 +1,11 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Microservice.Consumer.Domain.Entities;
-using Microservice.Consumer.Domain.Interfaces;
+using Microservice.Consumer.Domain.Interfaces.Repositories;
 using Microservice.Consumer.Domain.Messages;
 using Microservice.Consumer.Domain.Services;
 using Moq;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
 

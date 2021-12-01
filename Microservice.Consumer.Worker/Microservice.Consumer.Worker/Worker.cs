@@ -1,11 +1,9 @@
 using Microservice.Consumer.Domain.Entities;
-using Microservice.Consumer.Domain.Interfaces;
-using Microservice.Consumer.Domain.Messages;
+using Microservice.Consumer.Domain.Interfaces.MessageBroker;
+using Microservice.Consumer.Domain.Interfaces.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,11 +11,11 @@ namespace Microservice.Consumer.Worker
 {
     public class Worker : BackgroundService
     {
-        private readonly IMessageBroker<Entry> _messageBroker;
+        private readonly IMessageBrokerService<Entry> _messageBroker;
         private readonly IEntryService _entryService;
         private readonly ILogger<Worker> _logger;
 
-        public Worker(IMessageBroker<Entry> messageBroker, IEntryService entryService, ILogger<Worker> logger)
+        public Worker(IMessageBrokerService<Entry> messageBroker, IEntryService entryService, ILogger<Worker> logger)
         {
             _messageBroker = messageBroker;
             _entryService = entryService;

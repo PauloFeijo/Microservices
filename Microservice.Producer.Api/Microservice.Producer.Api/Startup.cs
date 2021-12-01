@@ -1,3 +1,5 @@
+using FluentValidation.AspNetCore;
+using Microservice.Producer.Api.Filters;
 using Microservice.Producer.Infra.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,9 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microservice.Producer.Api
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -21,12 +25,18 @@ namespace Microservice.Producer.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Microservice.Producer.Api", Version = "v1" });
             });
             services.RegisterModules(Configuration);
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidationModelStateActionFilter));
+            });
         }
 
 

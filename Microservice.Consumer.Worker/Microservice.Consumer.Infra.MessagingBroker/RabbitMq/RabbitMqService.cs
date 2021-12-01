@@ -1,33 +1,32 @@
 ﻿using Microservice.Consumer.Domain.Entities;
-using Microservice.Consumer.Domain.Interfaces;
+using Microservice.Consumer.Domain.Interfaces.MessageBroker;
 using Microservice.Consumer.Domain.Messages;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microservice.Consumer.Infra.MessagingBroker.RabbitMq
 {
-    public class RabbitMq<TData> : IMessageBroker<TData> where TData : Entity
+    public class RabbitMqService<TData> : IMessageBrokerService<TData> where TData : Entity
     {
         private readonly RabbitConfig _config;
-        private readonly ILogger<RabbitMq<TData>> _logger;
+        private readonly ILogger<RabbitMqService<TData>> _logger;
         private ConnectionFactory _connectionFactory;
         private IConnection _connection;
         private IModel _channel;
         private Func<Message<TData>, Task> _consumerDelegate;
 
-        public RabbitMq(RabbitConfig rabbitConfig, ILogger<RabbitMq<TData>> logger)
+        public RabbitMqService(RabbitConfig rabbitConfig, ILogger<RabbitMqService<TData>> logger)
         {
             _config = rabbitConfig;
             _logger = logger;
         }
 
-        public IMessageBroker<TData> ConfigureConsumer(Func<Message<TData>, Task> consumerDelegate)
+        public IMessageBrokerService<TData> ConfigureConsumer(Func<Message<TData>, Task> consumerDelegate)
         {
             _consumerDelegate = consumerDelegate;
             return this;
@@ -55,10 +54,7 @@ namespace Microservice.Consumer.Infra.MessagingBroker.RabbitMq
                 var deliveryTag = ea.DeliveryTag;
                 try
                 {
-                    var body = ea.Body.ToArray();
-                    var objSerialized = Encoding.UTF8.GetString(body);
-                    var message = DeserializeAndCreateMessage(objSerialized);
-
+                    var message = DeserializeAndCreateMessage(ea.Body.ToArray());
                     await Consume(message, deliveryTag);
                 }
                 catch (Exception)
@@ -78,7 +74,7 @@ namespace Microservice.Consumer.Infra.MessagingBroker.RabbitMq
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"[RabbitMq] Error on consume message tag {deliveryTag}");
-                throw;                
+                throw;
             }
         }
 
@@ -110,11 +106,11 @@ namespace Microservice.Consumer.Infra.MessagingBroker.RabbitMq
             }
         }
 
-        private Message<TData> DeserializeAndCreateMessage(string messageSerialized)
+        private Message<TData> DeserializeAndCreateMessage(byte[] body)
         {
             try
             {
-                var data = JsonSerializer.Deserialize<TData>(messageSerialized);
+                var data = JsonSerializer.Deserialize<TData>(body);
                 return new Message<TData>()
                 {
                     Id = data.Id,
@@ -123,7 +119,7 @@ namespace Microservice.Consumer.Infra.MessagingBroker.RabbitMq
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"[RabbitMq] Error on deserialize message received. Message: {messageSerialized}");
+                _logger.LogError(ex, $"[RabbitMq] Error on deserialize message received.");
                 throw;
             }
         }
@@ -132,8 +128,8 @@ namespace Microservice.Consumer.Infra.MessagingBroker.RabbitMq
         {
             if (_channel == null)
             {
-                _connectionFactory = new ConnectionFactory() 
-                { 
+                _connectionFactory = new ConnectionFactory()
+                {
                     HostName = _config.HostName,
                     Port = _config.Port,
                     UserName = _config.UserName,

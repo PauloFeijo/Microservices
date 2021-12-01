@@ -2,7 +2,7 @@
 using Microservice.Consumer.Domain.Messages;
 using System.Threading.Tasks;
 
-namespace Microservice.Consumer.Domain.Interfaces
+namespace Microservice.Consumer.Domain.Interfaces.Services
 {
     public interface IEntryService
     {

@@ -1,12 +1,12 @@
 ﻿using FluentAssertions;
 using Microservice.Producer.Api.Controllers;
+using Microservice.Producer.Api.Models;
 using Microservice.Producer.Api.Tests.Builders;
-using Microservice.Producer.Domain.Dtos;
-using Microservice.Producer.Domain.Interfaces;
+using Microservice.Producer.Domain.Entities;
+using Microservice.Producer.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Microservice.Producer.Api.Tests.Controllers
@@ -26,36 +26,43 @@ namespace Microservice.Producer.Api.Tests.Controllers
         }
 
         [Fact]
-        public async Task Post_ShouldExecuteCorrectly()
+        public void Post_ShouldExecuteCorrectly()
         {
-            var entryDto = new EntryDtoBuilder()
+            var entryModelRequest = new EntryModelRequestBuilder()
                 .WithValidValues()
                 .Build();
             _entryService
-                .Setup(x => x.PublishEntry(It.Is<EntryDto>(x => x.Equals(entryDto))))
-                .Returns(Task.CompletedTask);
+                .Setup(x => x.PublishEntry(It.Is<Entry>(x => MathEntry(x, entryModelRequest))));
 
-            var result = await _entryController.Post(entryDto);
+            var result = _entryController.Post(entryModelRequest);
 
             result.Should().BeOfType<OkObjectResult>();
             _mock.VerifyAll();
         }
 
         [Fact]
-        public async Task Post_WhenServiceFail_ShouldThrowAnException()
+        public void Post_WhenServiceFail_ShouldThrowAnException()
         {
-            var entryDto = new EntryDtoBuilder()
+            var entryModelRequest = new EntryModelRequestBuilder()
                 .WithValidValues()
                 .Build();
             var exception = new Exception(ExceptionMessage);
             _entryService
-                .Setup(x => x.PublishEntry(It.IsAny<EntryDto>()))
+                .Setup(x => x.PublishEntry(It.IsAny<Entry>()))
                 .Throws(exception);
 
-            Func<Task> func = () => _entryController.Post(entryDto);
+            Action func = () => _entryController.Post(entryModelRequest);
 
-            await func.Should().ThrowAsync<Exception>().WithMessage(ExceptionMessage);
+            func.Should().Throw<Exception>().WithMessage(ExceptionMessage);
             _mock.VerifyAll();
         }
+
+        private static bool MathEntry(Entry entry, EntryModelRequest entryModelRequest) =>
+            entry.UserName == entryModelRequest.UserName &&
+            entry.Moment == entryModelRequest.Moment &&
+            entry.Type == entryModelRequest.Type &&
+            entry.Value == entryModelRequest.Value &&
+            entry.AccountDescription == entryModelRequest.AccountDescription &&
+            entry.Description == entryModelRequest.Description;
     }
 }

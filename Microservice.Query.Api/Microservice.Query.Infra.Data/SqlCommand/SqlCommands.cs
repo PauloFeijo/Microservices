@@ -1,7 +1,9 @@
 ﻿using Microservice.Query.Domain.Dtos;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microservice.Query.Infra.Data.SqlCommand
 {
+    [ExcludeFromCodeCoverage]
     public static class SqlCommands
     {
         public static string GetSqlEntryById() => $"{SqlEntry} WHERE ID = @Id ";

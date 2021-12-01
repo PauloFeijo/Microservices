@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Microservice.Query.Api.Controllers;
 using Microservice.Query.Domain.Dtos;
-using Microservice.Query.Domain.Interfaces;
+using Microservice.Query.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;

@@ -1,17 +1,19 @@
 ﻿using Microservice.Query.Domain.Dtos;
-using Microservice.Query.Domain.Interfaces;
+using Microservice.Query.Domain.Interfaces.Repositories;
 using Microservice.Query.Infra.Data.Context;
 using Microservice.Query.Infra.Data.SqlCommand;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Microservice.Query.Infra.Data.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class EntryRepository : IEntryRepository
     {
-        private IContext _ctx;
+        private readonly IContext _ctx;
 
         public EntryRepository(IContext ctx)
         {

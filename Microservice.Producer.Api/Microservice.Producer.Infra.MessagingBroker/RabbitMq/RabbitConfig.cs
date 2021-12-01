@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microservice.Producer.Infra.MessagingBroker.RabbitMq
 {
+    [ExcludeFromCodeCoverage]
     public class RabbitConfig
     {
         public RabbitConfig(IConfiguration configuration)

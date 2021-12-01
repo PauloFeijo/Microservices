@@ -12,26 +12,38 @@ using Xunit;
 
 namespace Microservice.Producer.Api.Tests.Filters
 {
-    public class ValidationExceptionFilterTest
+    public class CustomExceptionFilterTest
     {
-        private readonly ValidationExceptionFilter _filter;
+        private readonly CustomExceptionFilter _filter;
 
-        public ValidationExceptionFilterTest()
+        public CustomExceptionFilterTest()
         {
-            _filter = new ValidationExceptionFilter();
+            _filter = new CustomExceptionFilter();
         }
 
         [Fact]
         public void OnException_whenIsValidationException_ShouldReturnBadRequest()
         {
             var errorMessage = "Error Message";
-            var exception = new ValidationException(errorMessage);
+            var exception = new CustomException(errorMessage);
             var exceptionContext = CreateExceptionContext(exception);
 
             _filter.OnException(exceptionContext);
 
             exceptionContext.Result.Should().BeOfType<BadRequestObjectResult>();
             exceptionContext.Exception.Should().BeEquivalentTo(exception);
+        }
+
+        [Fact]
+        public void OnException_whenIsNotValidationException_ShouldReturnNull()
+        {
+            var errorMessage = "Error Message";
+            var exception = new Exception(errorMessage);
+            var exceptionContext = CreateExceptionContext(exception);
+
+            _filter.OnException(exceptionContext);
+
+            exceptionContext.Result.Should().BeNull();
         }
 
         private ExceptionContext CreateExceptionContext(Exception exception)

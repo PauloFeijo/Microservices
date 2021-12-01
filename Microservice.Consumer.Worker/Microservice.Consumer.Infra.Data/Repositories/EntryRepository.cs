@@ -1,5 +1,5 @@
 ﻿using Microservice.Consumer.Domain.Entities;
-using Microservice.Consumer.Domain.Interfaces;
+using Microservice.Consumer.Domain.Interfaces.Repositories;
 using Microservice.Consumer.Infra.Data.Context;
 using Microsoft.Extensions.Logging;
 using System;
