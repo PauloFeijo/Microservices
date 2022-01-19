@@ -36,7 +36,7 @@ namespace Microservice.Producer.Api.Tests.Controllers
 
             var result = _entryController.Post(entryModelRequest);
 
-            result.Should().BeOfType<OkObjectResult>();
+            result.Should().BeOfType<AcceptedResult>();
             _mock.VerifyAll();
         }
 
