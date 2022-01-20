@@ -16,7 +16,7 @@ jobs:
     - name: Setup Microservice.Producer.Api
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: Restore dependencies
       working-directory: ./Microservice.Producer.Api
       run: dotnet restore
