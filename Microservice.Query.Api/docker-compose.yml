@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  microservice.query.api:
+    image: ${DOCKER_REGISTRY-}microservicequeryapi
+    build:
+      context: .
+      dockerfile: Microservice.Query.Api/Dockerfile

@@ -1,6 +1,8 @@
 ﻿using Microservice.Query.Domain.Dtos;
 using Microservice.Query.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
@@ -11,11 +13,15 @@ namespace Microservice.Query.Api.Controllers
     public class EntryController : ControllerBase
     {
         private readonly IEntryRepository _repo;
+        private readonly ILogger<EntryController> _logger;
+        private readonly IConfiguration _config;
 
         public EntryController(
-            IEntryRepository repo)
+            IEntryRepository repo, ILogger<EntryController> logger, IConfiguration config)
         {
             _repo = repo;
+            _logger = logger;
+            _config = config;
         }
 
         [HttpGet]
@@ -35,6 +41,12 @@ namespace Microservice.Query.Api.Controllers
                 return NoContent();
             }
             return Ok(entry);
+        }
+
+        [HttpGet("connection_string")]
+        public IActionResult GetConnectionString()
+        {
+            return Ok(_config.GetConnectionString("MicroservicesDb"));
         }
     }
 }

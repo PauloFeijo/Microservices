@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  microservice.consumer.worker:
+    image: ${DOCKER_REGISTRY-}microserviceconsumerworker
+    build:
+      context: .
+      dockerfile: Microservice.Consumer.Worker/Dockerfile

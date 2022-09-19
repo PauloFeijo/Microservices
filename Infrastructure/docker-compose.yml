@@ -1,0 +1,32 @@
+version: "3.2"
+
+services:
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: 'sqlserver'
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+        - ~/.docker-conf/sqlserver/data/:/var/lib/sqlserver/  
+    networks:
+        - microservices 
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - microservices
+
+networks:
+  microservices:
+    driver: bridge     

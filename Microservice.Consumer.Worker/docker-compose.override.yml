@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  microservice.consumer.worker:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:MicroservicesDb=Data Source=sqlserver,1433;Initial Catalog=Microservice;User Id=sa;Password=Pass@word;"
+      - "RabbitConfig:HostName=rabbitmq"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+networks:
+  default:
+    external: true
+    name: infrastructure_microservices
