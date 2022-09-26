@@ -1,12 +1,11 @@
 ﻿using Dapper;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace Microservice.Query.Infra.Data.Context
+namespace Microservice.Query.Infra.Data.SqlServer.Context
 {
     [ExcludeFromCodeCoverage]
     public class Context : IContext

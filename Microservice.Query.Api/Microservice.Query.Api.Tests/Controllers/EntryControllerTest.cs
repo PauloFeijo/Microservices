@@ -78,7 +78,7 @@ namespace Microservice.Query.Api.Tests.Controllers
         [Fact]
         public async Task GetEntry_ShouldReturnOKWithOneEntry()
         {
-            var id = _builder.Create<Guid>();
+            var id = _builder.Create<string>();
             var entry = _builder.Create<EntryDto>();
             _entryRepository
                 .Setup(x => x.GetEntry(id))
@@ -94,7 +94,7 @@ namespace Microservice.Query.Api.Tests.Controllers
         [Fact]
         public async Task GetEntry_WhenEntryNotFound_ShouldReturnNoContent()
         {
-            var id = _builder.Create<Guid>();
+            var id = _builder.Create<string>();
             var entry = (EntryDto)null;
             _entryRepository
                 .Setup(x => x.GetEntry(id))
@@ -109,7 +109,7 @@ namespace Microservice.Query.Api.Tests.Controllers
         [Fact]
         public async Task GetEntry_WhenRepositoryFail_ShouldThrowAnException()
         {
-            var id = _builder.Create<Guid>();
+            var id = _builder.Create<string>();
             var exception = new Exception(ExceptionMessage);
             _entryRepository
                 .Setup(x => x.GetEntry(id))

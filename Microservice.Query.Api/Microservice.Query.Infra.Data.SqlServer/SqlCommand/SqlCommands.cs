@@ -1,7 +1,7 @@
 ﻿using Microservice.Query.Domain.Dtos;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Microservice.Query.Infra.Data.SqlCommand
+namespace Microservice.Query.Infra.Data.SqlServer.SqlCommand
 {
     [ExcludeFromCodeCoverage]
     public static class SqlCommands
@@ -18,7 +18,7 @@ namespace Microservice.Query.Infra.Data.SqlCommand
             {(param.Description == null ? "" : " AND ENTRY_DS LIKE @Description")}
             {(param.Type == null ? "" : " AND ENTRY_TP LIKE @Type")}
             ORDER BY USER_NM, ENTRY_DT
-            OFFSET @PageIndex ROWS 
+            OFFSET ((@Page - 1) * @PageSize) ROWS 
             FETCH NEXT @PageSize ROWS ONLY
         ";
 

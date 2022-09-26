@@ -13,15 +13,11 @@ namespace Microservice.Query.Api.Controllers
     public class EntryController : ControllerBase
     {
         private readonly IEntryRepository _repo;
-        private readonly ILogger<EntryController> _logger;
-        private readonly IConfiguration _config;
 
         public EntryController(
-            IEntryRepository repo, ILogger<EntryController> logger, IConfiguration config)
+            IEntryRepository repo)
         {
             _repo = repo;
-            _logger = logger;
-            _config = config;
         }
 
         [HttpGet]
@@ -32,7 +28,7 @@ namespace Microservice.Query.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEntry(Guid id)
+        public async Task<IActionResult> GetEntry(string id)
         {
             var entry = await _repo.GetEntry(id);
 
@@ -41,12 +37,6 @@ namespace Microservice.Query.Api.Controllers
                 return NoContent();
             }
             return Ok(entry);
-        }
-
-        [HttpGet("connection_string")]
-        public IActionResult GetConnectionString()
-        {
-            return Ok(_config.GetConnectionString("MicroservicesDb"));
         }
     }
 }

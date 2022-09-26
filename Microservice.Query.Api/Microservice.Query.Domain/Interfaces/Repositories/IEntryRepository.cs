@@ -8,6 +8,6 @@ namespace Microservice.Query.Domain.Interfaces.Repositories
     public interface IEntryRepository
     {
         Task<IEnumerable<EntryDto>> GetEntries(EntryParamsDto param);
-        Task<EntryDto> GetEntry(Guid id);
+        Task<EntryDto> GetEntry(string id);
     }
 }

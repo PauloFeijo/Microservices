@@ -9,8 +9,9 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Microservice.Query.Api/Microservice.Query.Api.csproj", "Microservice.Query.Api/"]
 COPY ["Microservice.Query.Infra.IoC/Microservice.Query.Infra.IoC.csproj", "Microservice.Query.Infra.IoC/"]
+COPY ["Microservice.Query.Infra.Data.Mongo/Microservice.Query.Infra.Data.Mongo.csproj", "Microservice.Query.Infra.Data.Mongo/"]
 COPY ["Microservice.Query.Domain/Microservice.Query.Domain.csproj", "Microservice.Query.Domain/"]
-COPY ["Microservice.Query.Infra.Data/Microservice.Query.Infra.Data.csproj", "Microservice.Query.Infra.Data/"]
+COPY ["Microservice.Query.Infra.Data.SqlServer/Microservice.Query.Infra.Data.SqlServer.csproj", "Microservice.Query.Infra.Data.SqlServer/"]
 RUN dotnet restore "Microservice.Query.Api/Microservice.Query.Api.csproj"
 COPY . .
 WORKDIR "/src/Microservice.Query.Api"

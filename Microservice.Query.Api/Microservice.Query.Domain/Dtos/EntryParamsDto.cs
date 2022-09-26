@@ -7,10 +7,10 @@ namespace Microservice.Query.Domain.Dtos
         public string UserName { get; set; }
         public DateTime? InitialDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public string Type { get; set; }
+        public char? Type { get; set; }
         public string AccountDescription { get; set; }
         public string Description { get; set; }
-        public int PageIndex { get; set; } = 0;
-        public int PageSize { get; set; } = 100;
+        public int Page { get; set; } = 1;
+        public int PageSize { get; set; } = int.MaxValue;
     }
 }

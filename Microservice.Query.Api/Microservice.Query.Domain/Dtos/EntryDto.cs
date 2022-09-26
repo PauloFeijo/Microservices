@@ -1,10 +1,14 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace Microservice.Query.Domain.Dtos
 {
     public class EntryDto
     {
-        public Guid Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
         public string UserName { get; set; }
         public DateTime Moment { get; set; }
         public decimal Value { get; set; }

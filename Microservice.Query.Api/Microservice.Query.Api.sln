@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7FE052D3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Query.Api", "Microservice.Query.Api\Microservice.Query.Api.csproj", "{0740F3B0-6482-494E-9617-B8C52C7B9C47}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Query.Infra.Data", "Microservice.Query.Infra.Data\Microservice.Query.Infra.Data.csproj", "{09265219-4168-418E-AE1A-8DEBF18F694C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Query.Infra.Data.SqlServer", "Microservice.Query.Infra.Data.SqlServer\Microservice.Query.Infra.Data.SqlServer.csproj", "{09265219-4168-418E-AE1A-8DEBF18F694C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Query.Domain", "Microservice.Query.Domain\Microservice.Query.Domain.csproj", "{4B080046-FD6C-448C-B314-59477C60FD47}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Query.Api.Tests", "Microservice.Query.Api.Tests\Microservice.Query.Api.Tests.csproj", "{B9BD1AE0-5A86-46CC-921C-F14BF3FF6CEC}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E697F66E-5791-453F-923E-D16DE17857C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Query.Infra.Data.Mongo", "Microservice.Query.Infra.Data.Mongo\Microservice.Query.Infra.Data.Mongo.csproj", "{648D499A-022D-4536-8DA1-172CD5FEB46B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{E697F66E-5791-453F-923E-D16DE17857C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E697F66E-5791-453F-923E-D16DE17857C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E697F66E-5791-453F-923E-D16DE17857C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{648D499A-022D-4536-8DA1-172CD5FEB46B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{648D499A-022D-4536-8DA1-172CD5FEB46B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{648D499A-022D-4536-8DA1-172CD5FEB46B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{648D499A-022D-4536-8DA1-172CD5FEB46B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{A95DF7DA-FDDB-4929-87F1-F8B73B413D28} = {5D93729D-1832-4E5F-8A00-9B127BEC4FE5}
 		{B29CCEBD-48DF-4CED-AE03-0F8825591919} = {7FE052D3-39DA-4AB4-9788-3DB608FCC150}
 		{B9BD1AE0-5A86-46CC-921C-F14BF3FF6CEC} = {B29CCEBD-48DF-4CED-AE03-0F8825591919}
+		{648D499A-022D-4536-8DA1-172CD5FEB46B} = {5D93729D-1832-4E5F-8A00-9B127BEC4FE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B41D548-F258-4942-A2AF-404A558807BB}
