@@ -16,14 +16,12 @@ namespace Microservice.Producer.Api.Models
         {
             return new Entry()
             {
-                Id = Guid.NewGuid(),
                 UserName = UserName,
                 Moment = Moment,
                 Value = Value,
                 Type = Type,
                 AccountDescription = AccountDescription,
-                Description = Description,
-                CreatedAt = DateTime.UtcNow
+                Description = Description
             };
         }
     }

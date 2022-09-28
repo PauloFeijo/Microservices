@@ -20,7 +20,7 @@ namespace Microservice.Producer.Domain.Services
         }
         public void PublishEntry(Entry entry)
         {
-            _logger.LogInformation($"Call the message service for the entry {entry.Id}");
+            _logger.LogInformation($"Call the message service");
             var message = new Message<Entry>(entry);
             _messageBroker.Publish(message);
         }
