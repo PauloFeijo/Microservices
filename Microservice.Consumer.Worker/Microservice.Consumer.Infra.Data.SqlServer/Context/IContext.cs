@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microservice.Consumer.Infra.Data.Context
+namespace Microservice.Consumer.Infra.Data.SqlServer.Context
 {
     public interface IContext
     {

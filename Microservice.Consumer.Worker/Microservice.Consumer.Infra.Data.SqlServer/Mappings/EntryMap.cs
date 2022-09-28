@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Microservice.Consumer.Infra.Data.Mappings
+namespace Microservice.Consumer.Infra.Data.SqlServer.Mappings
 {
     public class EntryMap : BaseMap<Entry>
     {

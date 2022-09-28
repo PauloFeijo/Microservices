@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Microservice.Consumer.Domain\Microservice.Consumer.Domain.csproj" />
-    <ProjectReference Include="..\Microservice.Consumer.Infra.Data\Microservice.Consumer.Infra.Data.csproj" />
+    <ProjectReference Include="..\Microservice.Consumer.Infra.Data.Mongo\Microservice.Consumer.Infra.Data.Mongo.csproj" />
     <ProjectReference Include="..\Microservice.Consumer.Infra.MessagingBroker\Microservice.Consumer.Infra.MessagingBroker.csproj" />
   </ItemGroup>
 

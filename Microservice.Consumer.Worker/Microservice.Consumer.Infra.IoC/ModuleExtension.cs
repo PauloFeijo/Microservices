@@ -3,10 +3,9 @@ using Microservice.Consumer.Domain.Interfaces.MessageBroker;
 using Microservice.Consumer.Domain.Interfaces.Repositories;
 using Microservice.Consumer.Domain.Interfaces.Services;
 using Microservice.Consumer.Domain.Services;
-using Microservice.Consumer.Infra.Data.Context;
-using Microservice.Consumer.Infra.Data.Repositories;
+using Microservice.Consumer.Infra.Data.Mongo.Context;
+using Microservice.Consumer.Infra.Data.Mongo.Repositories;
 using Microservice.Consumer.Infra.MessagingBroker.RabbitMq;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +13,6 @@ namespace Microservice.Consumer.Infra.IoC
 {
     public static class ModuleExtension
     {
-        private const string ConnectionStringName = "MicroservicesDb";
         public static IServiceCollection RegisterModules(this IServiceCollection services, IConfiguration configuration) =>
             services
                 .AddSingleton<IEntryService, EntryService>()
@@ -29,7 +27,6 @@ namespace Microservice.Consumer.Infra.IoC
 
         private static IServiceCollection RegisterDataBaseConnection(this IServiceCollection services, IConfiguration configuration) =>
             services
-                .AddDbContext<IContext, Context>(op =>
-                    op.UseSqlServer(configuration.GetConnectionString(ConnectionStringName)), ServiceLifetime.Singleton);
+                .AddSingleton(x => new MongoContext(configuration.GetConnectionString("MicroservicesDb"), "Microservices"));
     }
 }

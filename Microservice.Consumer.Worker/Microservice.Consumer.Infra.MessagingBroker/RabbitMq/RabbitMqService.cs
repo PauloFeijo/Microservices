@@ -113,7 +113,6 @@ namespace Microservice.Consumer.Infra.MessagingBroker.RabbitMq
                 var data = JsonSerializer.Deserialize<TData>(body);
                 return new Message<TData>()
                 {
-                    Id = data.Id,
                     Data = data
                 };
             }

@@ -1,11 +1,11 @@
 ﻿using Microservice.Consumer.Domain.Entities;
 using Microservice.Consumer.Domain.Interfaces.Repositories;
-using Microservice.Consumer.Infra.Data.Context;
+using Microservice.Consumer.Infra.Data.SqlServer.Context;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Microservice.Consumer.Infra.Data.Repositories
+namespace Microservice.Consumer.Infra.Data.SqlServer.Repositories
 {
     public class EntryRepository : BaseRepository<Entry>, IEntryRepository
     {

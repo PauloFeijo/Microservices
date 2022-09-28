@@ -2,6 +2,7 @@
 using Microservice.Consumer.Domain.Interfaces.Repositories;
 using Microservice.Consumer.Domain.Interfaces.Services;
 using Microservice.Consumer.Domain.Messages;
+using System;
 using System.Threading.Tasks;
 
 namespace Microservice.Consumer.Domain.Services
@@ -17,7 +18,9 @@ namespace Microservice.Consumer.Domain.Services
 
         public async Task HandleMessage(Message<Entry> message)
         {
-            await _repo.Persist(message.Data);
+            var entry = message.Data;
+            entry.CreatedAt = DateTime.Now;
+            await _repo.Persist(entry);
         }
     }
 }

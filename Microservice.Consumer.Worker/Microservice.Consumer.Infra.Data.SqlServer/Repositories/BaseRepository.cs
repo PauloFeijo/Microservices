@@ -1,10 +1,10 @@
-﻿using Microservice.Consumer.Infra.Data.Context;
+﻿using Microservice.Consumer.Infra.Data.SqlServer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Threading.Tasks;
 
-namespace Microservice.Consumer.Infra.Data.Repositories
+namespace Microservice.Consumer.Infra.Data.SqlServer.Repositories
 {
     public abstract class BaseRepository<TEntity> where TEntity : class
     {

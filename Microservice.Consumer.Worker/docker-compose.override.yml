@@ -4,7 +4,7 @@ services:
   microservice.consumer.worker:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:MicroservicesDb=Data Source=sqlserver,1433;Initial Catalog=Microservice;User Id=sa;Password=Pass@word;"
+      - "ConnectionStrings:MicroservicesDb=mongodb://mongodb:27017"
       - "RabbitConfig:HostName=rabbitmq"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro

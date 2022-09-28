@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Microservice.Consumer.Worker/Microservice.Consumer.Worker.csproj", "Microservice.Consumer.Worker/"]
 COPY ["Microservice.Consumer.Infra.IoC/Microservice.Consumer.Infra.IoC.csproj", "Microservice.Consumer.Infra.IoC/"]
-COPY ["Microservice.Consumer.Infra.Data/Microservice.Consumer.Infra.Data.csproj", "Microservice.Consumer.Infra.Data/"]
+COPY ["Microservice.Consumer.Infra.Data.SqlServer/Microservice.Consumer.Infra.Data.SqlServer.csproj", "Microservice.Consumer.Infra.Data.SqlServer/"]
 COPY ["Microservice.Consumer.Domain/Microservice.Consumer.Domain.csproj", "Microservice.Consumer.Domain/"]
 COPY ["Microservice.Consumer.Infra.MessagingBroker/Microservice.Consumer.Infra.MessagingBroker.csproj", "Microservice.Consumer.Infra.MessagingBroker/"]
 RUN dotnet restore "Microservice.Consumer.Worker/Microservice.Consumer.Worker.csproj"

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Microservice.Consumer.Infra.Data.Context
+namespace Microservice.Consumer.Infra.Data.SqlServer.Context
 {
     public class Context : DbContext, IContext
     {
