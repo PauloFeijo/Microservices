@@ -1,28 +1,24 @@
 version: "3.2"
 
 services:
-
-  sqldata:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: 'sqlserver'
-    environment:
-      - SA_PASSWORD=Pass@word
-      - ACCEPT_EULA=Y
+  mongodb:
+    image: mongo
+    container_name: mongodb
     ports:
-      - "1433:1433"
+      - "27017:27017"
     volumes:
-        - ~/.docker-conf/sqlserver/data/:/var/lib/sqlserver/  
+      - ~/.docker-conf/mongodb/data/:/var/data/mongodb
     networks:
-        - microservices 
+      - microservices
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
+    container_name: rabbitmq
     ports:
         - 5672:5672
         - 15672:15672
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
         - microservices
